@@ -8,9 +8,8 @@ Before setting up the project, ensure that you have the following installed:
 
 - PHP (version 8.3 or higher)
 - Composer
-- Node.js (version 16 or higher)
 - NPM
-- MySQL or MariaDB
+- MySQL
 
 ## Installation
 
