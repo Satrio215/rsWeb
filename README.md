@@ -1,6 +1,6 @@
 # RS Web
 
-This is the RS Web project, developed using Laravel and React. It aims to provide a web platform for managing and interacting with data in a seamless and efficient manner.
+PUSH KE BRANCH MASING MASING YA!!!
 
 ## Requirements
 
@@ -29,19 +29,19 @@ npm i
 composer i
 ```
 
-### 3. setting env
+### 3. Set up environment variables
 
 ```shell
 cp .env.example .env
 ```
 
-### 4. migrate tabel ke database
+### 4. Migrate tables to the database
 
 ```shell
 php artisan migrate:fresh --seed
 ```
 
-### 5. run aplikasi
+### 5. Run the application
 
 ```shell
 npm run dev
