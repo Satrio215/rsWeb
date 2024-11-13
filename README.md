@@ -18,30 +18,33 @@ Follow the steps below to set up the project:
 
 ### 1. Clone the repository
 
-```bash
+```shell
 git clone https://github.com/Satrio215/rsWeb.git
 cd rsWeb
+```
 
 ### 2. Install npm and Composer
 
-```bash
+```shell
 npm i
 composer i
+```
 
 ### 3. setting env
 
-```bash
+```shell
 cp .env.example .env
-
+```
 
 ### 4. migrate tabel ke database
 
-```bash
+```shell
 php artisan migrate:fresh --seed
+```
 
 ### 5. run aplikasi
 
-```bash
+```shell
 npm run dev
 php artisan serve
-
+```
