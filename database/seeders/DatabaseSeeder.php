@@ -13,12 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@rsub.dev',
-            'password' => 'antiAdmin',
+        $this->call([
+            PatientsSeeder::class,
+            DoctorsSeeder::class,
+            SchedulesSeeder::class,
+            AppointmentsSeeder::class,
+            MedicinesSeeder::class,
+            MedicalRecordsSeeder::class,
+            PerscriptionsSeeder::class,
         ]);
     }
 }
