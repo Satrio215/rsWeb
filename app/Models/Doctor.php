@@ -9,11 +9,7 @@ class Doctor extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
         'name',
         'specialization',
@@ -21,7 +17,6 @@ class Doctor extends Model
         'email',
         'password',
     ];
-
     /**
      * Hide sensitive attributes.
      *

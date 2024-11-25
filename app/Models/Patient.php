@@ -14,6 +14,7 @@ class Patient extends Model
      *
      * @var array
      */
+
     protected $fillable = [
         'name',
         'birth_date',
@@ -36,6 +37,8 @@ class Patient extends Model
     /**
      * Define the appointments relationship.
      */
+
+
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
