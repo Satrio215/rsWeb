@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('birth_date');
             $table->enum('gender', ['Male', 'Female']);
             $table->text('address');
-            $table->string('phone_number', 15);
+            $table->string('phone_number',16);
             $table->string('email', 100)->unique();
             $table->string('password');
             $table->timestamps();
