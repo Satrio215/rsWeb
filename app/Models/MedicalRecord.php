@@ -5,38 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Appointment extends Model
+class MedicalRecord extends Model
 {
     use HasFactory;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
         'patient_id',
         'doctor_id',
-        'appointment_date',
-        'status',
-    ];
-
-    protected $casts = [
-        'appointment_date' => 'datetime',
+        'appointment_id',
+        'diagnosis',
+        'treatment',
+        'notes',
     ];
 
     public function patient()
     {
         return $this->belongsTo(Patient::class);
     }
-  
+
     public function doctor()
     {
         return $this->belongsTo(Doctor::class);
     }
 
-    public function medicalRecord()
+    public function appointment()
     {
-        return $this->hasOne(MedicalRecord::class);
+        return $this->belongsTo(Appointment::class);
     }
-
 }
