@@ -3,8 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\MedicalRecordController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\Api\MedicalRecordController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -14,6 +15,9 @@ Route::get('/user', function (Request $request) {
 
 //fitur appointments
 Route::get('/appointments', [AppointmentController::class, 'coba']);
+Route::post('/appointments/add/process', [AppointmentController::class, 'store']);
+Route::post('/appointments/add/process2', [AppointmentController::class, 'cobain']);
+
 Route::get('/appointments/show', [AppointmentController::class, 'index']);
 Route::get('/appointments/showselect', [AppointmentController::class, 'indexselection']);
 
