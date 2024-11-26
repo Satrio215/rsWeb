@@ -9,11 +9,9 @@ class AppointmentController extends Controller
 {
     public function coba()
     {
-        // Retrieve appointments with related patient and doctor data
         $appointments = Appointment::with(['patient', 'doctor'])
             ->get(['id', 'patient_id', 'doctor_id', 'appointment_date', 'status']);
 
-        // Transform data to include only required fields
         $data = $appointments->map(function ($appointment) {
             return [
                 'patient_name' => $appointment->patient->name,
@@ -22,7 +20,6 @@ class AppointmentController extends Controller
                 'status' => $appointment->status,
             ];
         });
-
         return response()->json($data);
     }
     public function index()
@@ -40,6 +37,22 @@ class AppointmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    public function cobain(Request $request)
+    {
+        $validated = $request->validate([
+            'patient_id' => 'required',
+            'doctor_id' => 'required',
+            'appointment_date' => 'required',
+            'status' => 'required',
+        ]);
+
+        $appointment = Appointment::create($validated);
+
+        return response()->json([
+            'message' => 'Appointment created successfully.',
+            'data' => $appointment,
+        ], 201);
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -63,7 +76,6 @@ class AppointmentController extends Controller
     public function show($id)
     {
         $appointment = Appointment::with(['patient', 'doctor'])->find($id);
-
         if (!$appointment) {
             return response()->json(['message' => 'Appointment not found.'], 404);
         }
