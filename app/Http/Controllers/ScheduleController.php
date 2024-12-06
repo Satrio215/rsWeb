@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doctor;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,10 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        return inertia('Schedule/Create');
+        $doctors = Doctor::all();
+        return inertia('Schedule/Create', [
+            'doctors' => $doctors,
+        ]);
     }
 
     /**
@@ -43,7 +47,21 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'doctor_id' => 'required|exists:doctors,id',
+            'day' => 'required|string|max:255',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
+        ]);
+
+        Schedule::create([
+            'doctor_id' => $request->input('doctor_id'),
+            'day' => $request->input('day'),
+            'start_time' => $request->input('start_time'),
+            'end_time' => $request->input('end_time'),
+        ]);
+
+        return redirect()->route('schedules.index')->with('success', 'Jadwal berhasil ditambahkan.');
     }
 
     /**
