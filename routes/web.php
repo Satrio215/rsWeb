@@ -33,7 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/doctors/{id}', [DoctorController::class, 'destroy'])->name('doctors.destroy');
 
     Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
-    
+    Route::get('/schedules/create', [ScheduleController::class, 'create'])->name('schedules.create');
+    Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules.store');
     Route::delete('/schedules/{id}', [ScheduleController::class, 'destroy'])->name('schedules.destroy');
 
 
