@@ -12,7 +12,22 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        $schedules = Schedule::with('doctor:id,name')
+        ->latest()
+        ->get()
+        ->map(function ($schedule) {
+            return [
+                'id' => $schedule->id,
+                'doctor_name' => $schedule->doctor->name ?? 'Tidak Diketahui',
+                'day' => $schedule->day,
+                'start_time' => $schedule->start_time,
+                'end_time' => $schedule->end_time,
+            ];
+        });
+
+    return inertia('Schedule/Index', [
+        'schedules' => $schedules,
+    ]);
     }
 
     /**
@@ -20,7 +35,7 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Schedule/Create');
     }
 
     /**
@@ -58,8 +73,11 @@ class ScheduleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Schedule $schedule)
+    public function destroy(Schedule $schedule, $id)
     {
-        //
+        $schedule = Schedule::findOrFail($id);
+        $schedule->delete();
+
+        return response()->json(['message' => 'Doctor berhasil dihapus.']);
     }
 }

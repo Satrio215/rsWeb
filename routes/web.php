@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\DoctorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/doctors/edit/{id}', [DoctorController::class, 'edit'])->name('doctors.edit');
     Route::put('/doctors/{id}', [DoctorController::class, 'update'])->name('doctors.update');
     Route::delete('/doctors/{id}', [DoctorController::class, 'destroy'])->name('doctors.destroy');
+
+    Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
+    
+    Route::delete('/schedules/{id}', [ScheduleController::class, 'destroy'])->name('schedules.destroy');
+
 
 });
 
