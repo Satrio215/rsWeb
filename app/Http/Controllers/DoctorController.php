@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Doctor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 
 class DoctorController extends Controller
 {
@@ -12,7 +14,11 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        //
+        $doctors = Doctor::latest()->get();
+
+        return inertia('Doctor/Index', [
+            'doctors' => $doctors
+        ]);
     }
 
     /**
@@ -20,7 +26,7 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Doctor/Create');
     }
 
     /**
@@ -28,7 +34,24 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'specialization' => 'required',
+            'phone_number' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        Doctor::create([
+            'name' => $request->input('name'),
+            'specialization' => $request->input('specialization'),
+            'phone_number' => $request->input('phone_number'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')), // Enkripsi password
+        ]);
+
+        return redirect()->route('doctors.index')->with('success', 'Dokter berhasil ditambahkan.');
+
     }
 
     /**
@@ -42,24 +65,50 @@ class DoctorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Doctor $doctor)
+    public function edit($id)
     {
-        //
+        $doctor = Doctor::findOrFail($id);
+
+        return inertia('Doctor/Update', [
+            'doctor' => $doctor,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Doctor $doctor)
+    public function update(Request $request, Doctor $doctor, $id)
     {
-        //
+        $doctor = Doctor::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required',
+            'specialization' => 'required',
+            'phone_number' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        $doctor->update([
+            'name' => $request->input('name'),
+            'specialization' => $request->input('specialization'),
+            'phone_number' => $request->input('phone_number'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
+
+        return redirect()->route('doctors.index')->with('success', 'Dokter berhasil diupdate.');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Doctor $doctor)
+    public function destroy(Doctor $doctor, $id)
     {
-        //
+        $doctor = Doctor::findOrFail($id);
+        $doctor->delete();
+
+        return response()->json(['message' => 'Doctor berhasil dihapus.']);
     }
 }
