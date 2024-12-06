@@ -36,7 +36,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Doctor
                                 </NavLink>
-
+                                <NavLink
+                                    href={route('schedules.index')}
+                                    active={route().current('schedules.index')}
+                                >
+                                    Doctor Schedules
+                                </NavLink>
                             </div>
                         </div>
 
