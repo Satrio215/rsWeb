@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\DoctorAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\DoctorController;
@@ -15,6 +16,15 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('doctor/login', [DoctorAuthController::class, 'showLoginForm'])->name('doctor.login');
+Route::post('doctor/login', [DoctorAuthController::class, 'login']);
+Route::post('doctor/logout', [DoctorAuthController::class, 'logout'])->name('doctor.logout');
+
+Route::middleware('auth:doctors')->group(function () {
+    Route::get('doctor/dashboard', [DoctorAuthController::class, 'dashboard'])->name('doctor.dashboard');
+});
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -39,7 +49,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/schedules/{id}', [ScheduleController::class, 'update'])->name('schedules.update');
     Route::delete('/schedules/{id}', [ScheduleController::class, 'destroy'])->name('schedules.destroy');
 
-
 });
+
+
 
 require __DIR__.'/auth.php';
