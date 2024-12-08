@@ -6,7 +6,7 @@ export default function ScheduleIndex({ schedules = [], auth }) {
     const handleDelete = async (id) => {
         if (confirm('Apakah Anda yakin ingin menghapus jadwal ini?')) {
             try {
-                await axios.delete(route('schedules.destroy', id));
+                await axios.delete(route('schedules.destroy', id)); // Use schedule.id for correct route
                 alert('Jadwal berhasil dihapus');
                 location.reload(); // Refresh halaman untuk melihat perubahan
             } catch (error) {
@@ -49,8 +49,15 @@ export default function ScheduleIndex({ schedules = [], auth }) {
                                                     <td className="px-4 py-2 whitespace-nowrap text-sm">{schedule.start_time}</td>
                                                     <td className="px-4 py-2 whitespace-nowrap text-sm">{schedule.end_time}</td>
                                                     <td className="px-4 py-2 whitespace-nowrap text-sm flex space-x-2">
+                                                        {/* Edit Button */}
+                                                        <Link
+                                                            href={route('schedules.edit', schedule.id)}
+                                                            className="border border-green-600 text-green-600 px-4 py-2 rounded-lg shadow transition-colors duration-300 ease-in-out hover:bg-green-600 hover:text-white text-sm"
+                                                        >
+                                                            Edit
+                                                        </Link>
                                                         <button
-                                                            onClick={() => handleDelete(schedule.id)}
+                                                            onClick={() => handleDelete(schedule.id)} 
                                                             className="border border-red-600 text-red-600 px-4 py-2 rounded-lg shadow transition-colors duration-300 ease-in-out hover:bg-red-600 hover:text-white text-sm"
                                                         >
                                                             Delete
