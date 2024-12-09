@@ -6,6 +6,8 @@ use App\Models\Doctor;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 class ScheduleController extends Controller
 {
     /**
@@ -67,9 +69,19 @@ class ScheduleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Schedule $schedule)
+    public function show()
     {
-        //
+        $doctor = Auth::guard('doctors')->user();
+
+        if (!$doctor) {
+            return abort(403, 'Anda tidak memiliki akses ke jadwal.');
+        }
+
+        $schedules = Schedule::where('doctor_id', $doctor->id)->get();
+
+        return inertia('Doctor/Schedule', [
+            'schedules' => $schedules,
+        ]);
     }
 
     /**

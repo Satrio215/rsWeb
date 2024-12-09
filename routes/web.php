@@ -23,6 +23,7 @@ Route::post('doctor/logout', [DoctorAuthController::class, 'logout'])->name('doc
 
 Route::middleware('auth:doctors')->group(function () {
     Route::get('doctor/dashboard', [DoctorAuthController::class, 'dashboard'])->name('doctor.dashboard');
+    Route::get('doctor/schedule', [ScheduleController::class, 'show'])->name('schedule.show');
 });
 
 
