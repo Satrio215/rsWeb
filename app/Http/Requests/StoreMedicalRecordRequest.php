@@ -4,22 +4,24 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-namespace App\Http\Requests;
-
-use Illuminate\Foundation\Http\FormRequest;
-
 class StoreMedicalRecordRequest extends FormRequest
 {
-    public function authorize()
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
     {
-        return true; // Pastikan pengguna memiliki izin untuk membuat rekam medis
+        return true;
     }
 
-    public function rules()
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
     {
         return [
-            'patient_id' => 'required|exists:patients,id',
-            'doctor_id' => 'required|exists:doctors,id',
             'appointment_id' => 'required|exists:appointments,id',
             'diagnosis' => 'required|string',
             'treatment' => 'required|string',

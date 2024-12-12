@@ -10,12 +10,14 @@ class MedicalRecordResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'patient' => new PatientResource($this->whenLoaded('patient')),
-            'doctor' => new DoctorResource($this->whenLoaded('doctor')),
-            'appointment' => new AppointmentResource($this->whenLoaded('appointment')),
+            'appointment_id' => $this->appointment_id,
             'diagnosis' => $this->diagnosis,
             'treatment' => $this->treatment,
             'notes' => $this->notes,
+            'patient' => new PatientResource($this->appointment->patient),
+            'doctor' => new DoctorResource($this->appointment->doctor),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

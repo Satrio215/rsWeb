@@ -16,7 +16,6 @@ class UpdateMedicalRecordRequest extends FormRequest
         return [
             'patient_id' => 'required|exists:patients,id',
             'doctor_id' => 'required|exists:doctors,id',
-            'appointment_id' => 'required|exists:appointments,id',
             'diagnosis' => 'required|string',
             'treatment' => 'required|string',
             'notes' => 'nullable|string',
