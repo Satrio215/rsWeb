@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Patien extends Model
+class Patient extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -22,7 +23,7 @@ class Patien extends Model
         'password',
     ];
 
-    public function appointments()
+    public function appointments(): HasMany
     {
         return $this->hasMany(Appointment::class);
     }
