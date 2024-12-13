@@ -7,6 +7,7 @@ use App\Http\Controllers\DoctorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\MedicalRecordController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -49,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/schedules/edit/{id}', [ScheduleController::class, 'edit'])->name('schedules.edit');
     Route::put('/schedules/{id}', [ScheduleController::class, 'update'])->name('schedules.update');
     Route::delete('/schedules/{id}', [ScheduleController::class, 'destroy'])->name('schedules.destroy');
+    Route::get('/medical-records', [MedicalRecordController::class, 'index'])->name('medical-records.index');
 
 });
 
