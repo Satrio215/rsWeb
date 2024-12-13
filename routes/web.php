@@ -52,6 +52,22 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::get('/register-patient', function () {
+    return Inertia::render('Auth/RegisterPatient');
+})->name('register-patient');
+
+Route::post('/register-patient', [PatientRegistrationController::class, 'register'])->name('register-patient.submit');
+
+Route::get('/login-patient', function () {
+    return Inertia::render('Auth/LoginPatient');
+})->name('login-patient');
+
+Route::post('patient/login', [PatientLoginController::class, 'login'])->name('patient.login.submit');
+Route::post('patient/logout', [PatientLoginController::class, 'logout'])->name('patient.logout');
+Route::get('/patient/dashboard', [PatientController::class, 'dashboard'])
+    ->middleware('auth:patient') 
+    ->name('patient.dashboard');
+
 
 
 require __DIR__.'/auth.php';
