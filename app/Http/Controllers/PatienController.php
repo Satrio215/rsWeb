@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Patien;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PatienController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function dashboard()
+    {
+        return Inertia::render('Dashboard');
+    }  
     public function index()
     {
         //

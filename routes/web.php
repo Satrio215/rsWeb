@@ -6,6 +6,9 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\DoctorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PatientRegistrationController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\Auth\PatientLoginController;
 use Inertia\Inertia;
 
 Route::get('/', function () {
