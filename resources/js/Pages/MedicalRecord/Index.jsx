@@ -94,7 +94,15 @@ export default function MedicalRecordIndex({ medicalRecords = [], auth }) {
                                                     </td>
                                                     <td className="px-4 py-2 whitespace-nowrap text-sm flex space-x-2">
                                                         {/* Edit Button */}
-
+                                                        <Link
+                                                            href={route(
+                                                                "medical-records.edit",
+                                                                record.id,
+                                                            )}
+                                                            className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg shadow transition-colors duration-300 ease-in-out hover:bg-blue-600 hover:text-white text-sm"
+                                                        >
+                                                            Edit
+                                                        </Link>
                                                         <button
                                                             onClick={() =>
                                                                 handleDelete(

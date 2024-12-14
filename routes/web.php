@@ -50,8 +50,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/schedules/edit/{id}', [ScheduleController::class, 'edit'])->name('schedules.edit');
     Route::put('/schedules/{id}', [ScheduleController::class, 'update'])->name('schedules.update');
     Route::delete('/schedules/{id}', [ScheduleController::class, 'destroy'])->name('schedules.destroy');
+    Route::resource('medical-records', MedicalRecordController::class);
     Route::get('/medical-records', [MedicalRecordController::class, 'index'])->name('medical-records.index');
-
+    Route::get('medical-records/{id}/edit', [MedicalRecordController::class, 'edit'])->name('medical-records.edit');
+    Route::put('/medical-records/{id}', [MedicalRecordController::class, 'update'])->name('medical-records.update');
 });
 
 

@@ -6,6 +6,8 @@ use App\Models\MedicalRecord;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Http;
+use App\Models\Doctor;
+use App\Models\Patient;
 
 class MedicalRecordController extends Controller
 {
@@ -29,7 +31,9 @@ class MedicalRecordController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('MedicalRecord/Create', [
+        'doctors' => Doctor::all() // Ambil data dokter atau referensi lain jika diperlukan
+    ]);
     }
 
     /**
@@ -53,7 +57,17 @@ class MedicalRecordController extends Controller
      */
     public function edit(MedicalRecord $medicalRecord)
     {
-        //
+        $response = Http::get("http://127.0.0.1:8000/api/medical-records/{$medicalRecord}");
+
+        if ($response->successful()) {
+            return Inertia::render('MedicalRecord/Update', [
+                'record' => $response->json()['data'],
+                'doctors' => Doctor::all(),
+                'patiens' => Patient::all()
+            ]);
+        }
+
+        return redirect()->route('medical-records.index')->with('error', 'Data tidak ditemukan');
     }
 
     /**
@@ -61,23 +75,20 @@ class MedicalRecordController extends Controller
      */
     public function update(Request $request, MedicalRecord $medicalRecord)
     {
-        $data = [
-            'diagnosis' => $request->diagnosis,
-            'treatment' => $request->treatment,
-            'notes' => $request->notes,
-            'patient_id' => $request->patient_id,
-            'doctor_id' => $request->doctor_id,
-        ];
+        $validated = $request->validate([
+        'patient_name' => 'required|string|max:255',
+        'doctor_id' => 'required|integer|exists:doctors,id',
+        'diagnosis' => 'required|string',
+        'notes' => 'nullable|string',
+    ]);
 
-        // Mengirim permintaan PUT ke API eksternal
-        $response = Http::put("http://127.0.0.1:8000/api/medical-records/{$id}", $data);
+        $response = Http::put("http://127.0.0.1:8000/api/medical-records/{$medicalRecord}", $validated);
 
-        // Menangani respon
         if ($response->successful()) {
-            return redirect()->route('medical-records.index')->with('success', 'Rekam medis berhasil diperbarui.');
+            return redirect()->route('medical-records.index')->with('success', 'Data berhasil diperbarui.');
         }
 
-        return redirect()->route('medical-records.index')->with('error', 'Gagal memperbarui rekam medis.');
+        return back()->withErrors(['error' => 'Terjadi kesalahan saat memperbarui data']);
     }
 
     /**
@@ -85,6 +96,12 @@ class MedicalRecordController extends Controller
      */
     public function destroy(MedicalRecord $medicalRecord)
     {
-        //
+        $response = Http::delete("http://127.0.0.1:8000/api/medical-records/{$medicalRecord}");
+
+        if ($response->successful()) {
+            return redirect()->route('medical-records.index')->with('success', 'Data berhasil dihapus.');
+        }
+
+        return back()->withErrors(['error' => 'Terjadi kesalahan saat menghapus data']);
     }
 }
