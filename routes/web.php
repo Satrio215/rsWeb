@@ -6,6 +6,9 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\DoctorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PatientRegistrationController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\Auth\PatientLoginController;
 use Inertia\Inertia;
 use App\Http\Controllers\MedicalRecordController;
 
@@ -55,6 +58,22 @@ Route::middleware('auth')->group(function () {
     Route::get('medical-records/{id}/edit', [MedicalRecordController::class, 'edit'])->name('medical-records.edit');
     Route::put('/medical-records/{id}', [MedicalRecordController::class, 'update'])->name('medical-records.update');
 });
+
+Route::get('/register-patient', function () {
+    return Inertia::render('Auth/RegisterPatient');
+})->name('register-patient');
+
+Route::post('/register-patient', [PatientRegistrationController::class, 'register'])->name('register-patient.submit');
+
+Route::get('/login-patient', function () {
+    return Inertia::render('Auth/LoginPatient');
+})->name('login-patient');
+
+Route::post('patient/login', [PatientLoginController::class, 'login'])->name('patient.login.submit');
+Route::post('patient/logout', [PatientLoginController::class, 'logout'])->name('patient.logout');
+Route::get('/patient/dashboard', [PatientController::class, 'dashboard'])
+    ->middleware('auth:patient') 
+    ->name('patient.dashboard');
 
 
 
