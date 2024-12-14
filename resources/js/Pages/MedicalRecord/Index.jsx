@@ -2,16 +2,18 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 import axios from "axios";
 
-export default function ScheduleIndex({ schedules = [], auth }) {
+export default function MedicalRecordIndex({ medicalRecords = [], auth }) {
     const handleDelete = async (id) => {
-        if (confirm("Apakah Anda yakin ingin menghapus jadwal ini?")) {
+        if (
+            confirm("Apakah Anda yakin ingin menghapus data rekam medis ini?")
+        ) {
             try {
-                await axios.delete(route("schedules.destroy", id)); // Use schedule.id for correct route
-                alert("Jadwal berhasil dihapus");
-                location.reload(); // Refresh halaman untuk melihat perubahan
+                await axios.delete(route("medical-records.destroy", id)); // Gunakan id yang benar untuk rute
+                alert("Rekam medis berhasil dihapus");
+                location.reload(); // Segarkan halaman untuk melihat perubahan
             } catch (error) {
-                console.error("Error deleting schedule:", error);
-                alert("Terjadi kesalahan saat menghapus jadwal.");
+                console.error("Error deleting medical record:", error);
+                alert("Terjadi kesalahan saat menghapus rekam medis.");
             }
         }
     };
@@ -21,18 +23,18 @@ export default function ScheduleIndex({ schedules = [], auth }) {
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Daftar Jadwal Dokter
+                    Daftar Rekam Medis
                 </h2>
             }
         >
-            <Head title="Schedules" />
+            <Head title="Medical Records" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
                         <div className="p-6 bg-gray-100 border-b border-gray-200">
                             <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                                Daftar Jadwal Dokter
+                                Daftar Rekam Medis Pasien
                             </h3>
 
                             <div className="overflow-x-auto">
@@ -40,16 +42,19 @@ export default function ScheduleIndex({ schedules = [], auth }) {
                                     <thead>
                                         <tr>
                                             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                                                Dokter
+                                                Nama Pasien
                                             </th>
                                             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                                                Hari
+                                                Nomor HP
                                             </th>
                                             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                                                Jam Mulai
+                                                Tanggal
                                             </th>
                                             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                                                Jam Selesai
+                                                Nama Dokter
+                                            </th>
+                                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                                                Spesialisasi Dokter
                                             </th>
                                             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
                                                 Aksi
@@ -57,39 +62,51 @@ export default function ScheduleIndex({ schedules = [], auth }) {
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
-                                        {schedules.length > 0 ? (
-                                            schedules.map((schedule) => (
+                                        {medicalRecords.length > 0 ? (
+                                            medicalRecords.map((record) => (
                                                 <tr
-                                                    key={schedule.id}
+                                                    key={record.id}
                                                     className="hover:bg-gray-50"
                                                 >
                                                     <td className="px-4 py-2 whitespace-nowrap text-sm">
-                                                        {schedule.doctor_name}
+                                                        {record.patient.name}
+                                                    </td>
+
+                                                    <td className="px-4 py-2 whitespace-nowrap text-sm">
+                                                        {new Date(
+                                                            record.created_at,
+                                                        ).toLocaleDateString()}
                                                     </td>
                                                     <td className="px-4 py-2 whitespace-nowrap text-sm">
-                                                        {schedule.day}
+                                                        {record.doctor.name}
                                                     </td>
                                                     <td className="px-4 py-2 whitespace-nowrap text-sm">
-                                                        {schedule.start_time}
+                                                        {
+                                                            record.doctor
+                                                                .phone_number
+                                                        }
                                                     </td>
                                                     <td className="px-4 py-2 whitespace-nowrap text-sm">
-                                                        {schedule.end_time}
+                                                        {
+                                                            record.doctor
+                                                                .specialization
+                                                        }
                                                     </td>
                                                     <td className="px-4 py-2 whitespace-nowrap text-sm flex space-x-2">
                                                         {/* Edit Button */}
                                                         <Link
                                                             href={route(
-                                                                "schedules.edit",
-                                                                schedule.id,
+                                                                "medical-records.edit",
+                                                                record.id,
                                                             )}
-                                                            className="border border-green-600 text-green-600 px-4 py-2 rounded-lg shadow transition-colors duration-300 ease-in-out hover:bg-green-600 hover:text-white text-sm"
+                                                            className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg shadow transition-colors duration-300 ease-in-out hover:bg-blue-600 hover:text-white text-sm"
                                                         >
                                                             Edit
                                                         </Link>
                                                         <button
                                                             onClick={() =>
                                                                 handleDelete(
-                                                                    schedule.id,
+                                                                    record.id,
                                                                 )
                                                             }
                                                             className="border border-red-600 text-red-600 px-4 py-2 rounded-lg shadow transition-colors duration-300 ease-in-out hover:bg-red-600 hover:text-white text-sm"
@@ -102,10 +119,10 @@ export default function ScheduleIndex({ schedules = [], auth }) {
                                         ) : (
                                             <tr>
                                                 <td
-                                                    colSpan="5"
+                                                    colSpan="6"
                                                     className="text-center py-4 text-gray-500"
                                                 >
-                                                    Tidak ada jadwal yang
+                                                    Tidak ada rekam medis yang
                                                     tersedia.
                                                 </td>
                                             </tr>

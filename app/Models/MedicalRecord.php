@@ -20,12 +20,13 @@ class MedicalRecord extends Model
 
     public function patient()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->hasOneThrough(Patient::class, Appointment::class, 'id', 'id', 'appointment_id', 'patient_id');
     }
 
+    // Relasi ke Doctor melalui Appointment
     public function doctor()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->hasOneThrough(Doctor::class, Appointment::class, 'id', 'id', 'appointment_id', 'doctor_id');
     }
 
     public function appointment()
