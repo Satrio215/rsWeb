@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\Auth\DoctorAuthController;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
-use App\Http\Controllers\DoctorController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PatientRegistrationController;
-use App\Http\Controllers\PatientController;
-use App\Http\Controllers\Auth\PatientLoginController;
-use Inertia\Inertia;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\MedicalRecordController;
+use App\Http\Controllers\Auth\DoctorAuthController;
+use App\Http\Controllers\Auth\PatientLoginController;
+use App\Http\Controllers\PatientRegistrationController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -57,6 +58,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/medical-records', [MedicalRecordController::class, 'index'])->name('medical-records.index');
     Route::get('medical-records/{id}/edit', [MedicalRecordController::class, 'edit'])->name('medical-records.edit');
     Route::put('/medical-records/{id}', [MedicalRecordController::class, 'update'])->name('medical-records.update');
+
+    Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index');
+    Route::get('/appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
+    Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
+    Route::get('/appointments/edit/{id}', [AppointmentController::class, 'edit'])->name('appointments.edit');
+    Route::put('/appointments/{id}', [AppointmentController::class, 'update'])->name('appointments.update');
+    Route::delete('/appointments/{id}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
 });
 
 Route::get('/register-patient', function () {

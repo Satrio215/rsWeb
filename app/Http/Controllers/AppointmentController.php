@@ -12,7 +12,10 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $appointments = Appointment::with(['patient', 'doctor'])->get();
+    
+        return inertia('Appointment/Index', ['appointments' => $appointments]);
+            
     }
 
     /**
