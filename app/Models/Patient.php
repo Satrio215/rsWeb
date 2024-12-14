@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Patien extends Authenticatable
+class Patient extends Authenticatable
 {
     use HasFactory;
     protected $fillable = [
