@@ -108,7 +108,6 @@ class DoctorController extends Controller
     {
         $doctor = Doctor::findOrFail($id);
         $doctor->delete();
-
         return response()->json(['message' => 'Doctor berhasil dihapus.']);
     }
 }
