@@ -80,7 +80,7 @@ Route::get('/login-patient', function () {
 Route::post('patient/login', [PatientLoginController::class, 'login'])->name('patient.login.submit');
 Route::post('patient/logout', [PatientLoginController::class, 'logout'])->name('patient.logout');
 Route::get('/patient/dashboard', [PatientController::class, 'dashboard'])
-    ->middleware('auth:patient') 
+    ->middleware('auth:patient')
     ->name('patient.dashboard');
 
 

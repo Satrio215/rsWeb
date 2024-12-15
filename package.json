@@ -23,6 +23,7 @@
     "dependencies": {
         "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/inertia-react": "^0.8.1",
-        "react-router-dom": "^7.0.2"
+        "react-router-dom": "^7.0.2",
+        "react-toastify": "^10.0.6"
     }
 }

@@ -8,7 +8,7 @@ export default function MedicalRecordIndex({ medicalRecords = [], auth }) {
             confirm("Apakah Anda yakin ingin menghapus data rekam medis ini?")
         ) {
             try {
-                await axios.delete(route("medical-records.destroy", id)); // Gunakan id yang benar untuk rute
+                await axios.delete(route("medical-records.destroy", id));
                 alert("Rekam medis berhasil dihapus");
                 location.reload(); // Segarkan halaman untuk melihat perubahan
             } catch (error) {
@@ -42,10 +42,13 @@ export default function MedicalRecordIndex({ medicalRecords = [], auth }) {
                                     <thead>
                                         <tr>
                                             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                                                ID
+                                            </th>
+                                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
                                                 Nama Pasien
                                             </th>
                                             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                                                Nomor HP
+                                                Email
                                             </th>
                                             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
                                                 Tanggal
@@ -63,63 +66,84 @@ export default function MedicalRecordIndex({ medicalRecords = [], auth }) {
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
                                         {medicalRecords.length > 0 ? (
-                                            medicalRecords.map((record) => (
-                                                <tr
-                                                    key={record.id}
-                                                    className="hover:bg-gray-50"
-                                                >
-                                                    <td className="px-4 py-2 whitespace-nowrap text-sm">
-                                                        {record.patient.name}
-                                                    </td>
+                                            medicalRecords.map(
+                                                (record, index) => (
+                                                    <tr
+                                                        key={record.id}
+                                                        className="hover:bg-gray-50"
+                                                    >
+                                                        {/* ID */}
+                                                        <td className="px-4 py-2 whitespace-nowrap text-sm">
+                                                            {index + 1}
+                                                        </td>
 
-                                                    <td className="px-4 py-2 whitespace-nowrap text-sm">
-                                                        {new Date(
-                                                            record.created_at,
-                                                        ).toLocaleDateString()}
-                                                    </td>
-                                                    <td className="px-4 py-2 whitespace-nowrap text-sm">
-                                                        {record.doctor.name}
-                                                    </td>
-                                                    <td className="px-4 py-2 whitespace-nowrap text-sm">
-                                                        {
-                                                            record.doctor
-                                                                .phone_number
-                                                        }
-                                                    </td>
-                                                    <td className="px-4 py-2 whitespace-nowrap text-sm">
-                                                        {
-                                                            record.doctor
-                                                                .specialization
-                                                        }
-                                                    </td>
-                                                    <td className="px-4 py-2 whitespace-nowrap text-sm flex space-x-2">
-                                                        {/* Edit Button */}
-                                                        <Link
-                                                            href={route(
-                                                                "medical-records.edit",
-                                                                record.id,
-                                                            )}
-                                                            className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg shadow transition-colors duration-300 ease-in-out hover:bg-blue-600 hover:text-white text-sm"
-                                                        >
-                                                            Edit
-                                                        </Link>
-                                                        <button
-                                                            onClick={() =>
-                                                                handleDelete(
-                                                                    record.id,
-                                                                )
+                                                        {/* Nama Pasien */}
+                                                        <td className="px-4 py-2 whitespace-nowrap text-sm">
+                                                            {
+                                                                record.patient
+                                                                    .name
                                                             }
-                                                            className="border border-red-600 text-red-600 px-4 py-2 rounded-lg shadow transition-colors duration-300 ease-in-out hover:bg-red-600 hover:text-white text-sm"
-                                                        >
-                                                            Delete
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            ))
+                                                        </td>
+
+                                                        {/* Nomor HP */}
+                                                        <td className="px-4 py-2 whitespace-nowrap text-sm">
+                                                            {
+                                                                record.patient
+                                                                    .email
+                                                            }
+                                                        </td>
+
+                                                        {/* Tanggal */}
+                                                        <td className="px-4 py-2 whitespace-nowrap text-sm">
+                                                            {new Date(
+                                                                record.created_at,
+                                                            ).toLocaleDateString()}
+                                                        </td>
+
+                                                        {/* Nama Dokter */}
+                                                        <td className="px-4 py-2 whitespace-nowrap text-sm">
+                                                            {record.doctor.name}
+                                                        </td>
+
+                                                        {/* Spesialisasi Dokter */}
+                                                        <td className="px-4 py-2 whitespace-nowrap text-sm">
+                                                            {
+                                                                record.doctor
+                                                                    .specialization
+                                                            }
+                                                        </td>
+
+                                                        {/* Aksi */}
+                                                        <td className="px-4 py-2 whitespace-nowrap text-sm flex space-x-2">
+                                                            {/* Edit Button */}
+                                                            <Link
+                                                                href={route(
+                                                                    "medical-records.edit",
+                                                                    record.id,
+                                                                )}
+                                                                className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg shadow transition-colors duration-300 ease-in-out hover:bg-blue-600 hover:text-white text-sm"
+                                                            >
+                                                                Edit
+                                                            </Link>
+                                                            {/* Delete Button */}
+                                                            <button
+                                                                onClick={() =>
+                                                                    handleDelete(
+                                                                        record.id,
+                                                                    )
+                                                                }
+                                                                className="border border-red-600 text-red-600 px-4 py-2 rounded-lg shadow transition-colors duration-300 ease-in-out hover:bg-red-600 hover:text-white text-sm"
+                                                            >
+                                                                Delete
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                ),
+                                            )
                                         ) : (
                                             <tr>
                                                 <td
-                                                    colSpan="6"
+                                                    colSpan="7"
                                                     className="text-center py-4 text-gray-500"
                                                 >
                                                     Tidak ada rekam medis yang
