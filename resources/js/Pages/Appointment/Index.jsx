@@ -25,17 +25,26 @@ export default function AppointmentIndex({ appointments = [], auth }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <Link
+                    href={route('appointments.create')}
+                    className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg shadow transition-colors duration-300 ease-in-out hover:bg-blue-600 hover:text-white text-sm"
+                    >
+                    Tambah
+                </Link>
                     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+                        
                         <div className="p-6 bg-gray-100 border-b border-gray-200">
                             <h3 className="text-2xl font-bold text-gray-800 mb-4">List Appointment</h3>
-
                             <div className="overflow-x-auto">
                                 <table className="min-w-full divide-y divide-gray-300 bg-white rounded-lg shadow table-auto">
                                     <thead>
                                         <tr>
-                                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Nama</th>
                                             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Nama Pasien</th>
                                             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Nama Dokter</th>
+                                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Status</th>
+
+                                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Tanggal</th>
+                                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Pukul</th>
                                             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Action</th>
                                         </tr>
                                     </thead>
@@ -45,6 +54,9 @@ export default function AppointmentIndex({ appointments = [], auth }) {
                                                 <td className="px-4 py-2 whitespace-nowrap text-sm">{appointment.patient.name}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-sm">{appointment.doctor.name}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-sm">{appointment.status}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-sm">{appointment.appointment_date}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-sm">{appointment.appointment_time}</td>
+
                                                 <td className="px-4 py-2 whitespace-nowrap text-sm flex space-x-2">
                                                     <Link
                                                         href={route('appointments.edit', appointment.id)}
