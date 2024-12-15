@@ -23,7 +23,8 @@ class AppointmentsSeeder extends Seeder
         DB::table('appointments')->insert(
             collect(range(1, 10))->map(function () use ($doctorIds, $patientIds) {
                 return [
-                    'appointment_date' => fake()->dateTimeBetween('+1 days', '+7 days')->format('Y-m-d H:i:s'),
+                    'appointment_date' => fake()->dateTimeBetween('+1 days', '+7 days')->format('Y-m-d'),
+                    'appointment_time' => fake()->randomElement($this->generateHours()),
                     'doctor_id' => fake()->randomElement($doctorIds),
                     'patient_id' => fake()->randomElement($patientIds),
                     'status' => fake()->randomElement(['Scheduled', 'Completed', 'Cancelled']),
@@ -32,5 +33,11 @@ class AppointmentsSeeder extends Seeder
                 ];
             })->toArray()
         );
+    }
+    private function generateHours(): array
+    {
+        return collect(range(0, 23))->map(function ($hour) {
+            return str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00';
+        })->toArray();
     }
 }
