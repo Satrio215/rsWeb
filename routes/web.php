@@ -7,6 +7,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatienController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\MedicalRecordController;
@@ -51,14 +52,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/doctors/create', [DoctorController::class, 'create'])->name('doctors.create');
     Route::post('/doctors', [DoctorController::class, 'store'])->name('doctors.store');
 
-    Route::get('/medicines', [DoctorController::class, 'index'])->name('medicines.index');
-    Route::post('/medicines/create', [DoctorController::class, 'create'])->name('medicines.create');
-    Route::post('/medicines', [DoctorController::class, 'store'])->name('medicines.store');
-    Route::get('/medicines/edit/{id}', [DoctorController::class, 'edit'])->name('medicines.edit');
-    Route::put('/medicines/{id}', [DoctorController::class, 'update'])->name('medicines.update');
-    Route::delete('/medicines/{id}', [DoctorController::class, 'destroy'])->name('medicines.destroy');
-    Route::get('/medicines/create', [DoctorController::class, 'create'])->name('medicines.create');
-    Route::post('/medicines', [DoctorController::class, 'store'])->name('medicines.store');
+    Route::get('/medicines', [MedicineController::class, 'index'])->name('medicines.index');
+    Route::post('/medicines/create', [MedicineController::class, 'create'])->name('medicines.create');
+    Route::post('/medicines', [MedicineController::class, 'store'])->name('medicines.store');
+    Route::get('/medicines/edit/{id}', [MedicineController::class, 'edit'])->name('medicines.edit');
+    Route::put('/medicines/{id}', [MedicineController::class, 'update'])->name('medicines.update');
+    Route::delete('/medicines/{id}', [MedicineController::class, 'destroy'])->name('medicines.destroy');
+    Route::get('/medicines/create', [MedicineController::class, 'create'])->name('medicines.create');
+    Route::post('/medicines', [MedicineController::class, 'store'])->name('medicines.store');
 
     Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
     Route::get('/schedules/create', [ScheduleController::class, 'create'])->name('schedules.create');
