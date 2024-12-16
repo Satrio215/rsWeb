@@ -52,8 +52,8 @@ class ScheduleController extends Controller
         $request->validate([
             'doctor_id' => 'required|exists:doctors,id',
             'day' => 'required|string|max:255',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
+            'start_time' => 'required',
+            'end_time' => 'required',
         ]);
 
         Schedule::create([
