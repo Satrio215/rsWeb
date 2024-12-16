@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* resources/css/app.css */
+
+/* CSS untuk animasi latar belakang */
+@keyframes moveBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.background-image {
+    background-image: url('https://trustmedis.com/wp-content/uploads/2023/04/campaign-creators-pypeCEaJeZY-unsplash-scaled.jpg');
+    background-size: cover;
+    background-position: 0% 50%;
+    animation: moveBackground 10s linear infinite;
+}
+
+
