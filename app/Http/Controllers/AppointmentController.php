@@ -93,7 +93,7 @@ class AppointmentController extends Controller
     public function destroy(Appointment $appointment, $id)
     {
         $appointment = Appointment::findOrFail($id);
-        $appoontment->delete();
+        $appointment->delete();
         return response()->json(['message' => 'Doctor berhasil dihapus.']);
         
     }
