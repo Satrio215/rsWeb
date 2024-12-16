@@ -19,16 +19,37 @@ export default function DoctorIndex({ doctors, auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Daftar Dokter</h2>}
+            header={<div className="flex justify-between items-center">
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">Daftar Dokter</h2>
+                <div className="flex space-x-4">
+                    {/* Tombol Jadwal Dokter */}
+                    <Link
+                        href={route('schedules.index')}
+                        className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-lg shadow text-sm"
+                    >
+                        Jadwal Dokter
+                    </Link>
+                    {/* Tombol Tambah Dokter */}
+                </div>
+            </div>}
         >
             <Head title="Doctor" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-                        <div className="p-6 bg-gray-100 border-b border-gray-200">
-                            <h3 className="text-2xl font-bold text-gray-800 mb-4">Daftar Dokter</h3>
+                        <div className="p-6 bg-gray-100 border-b border-gray-200 flex items-center justify-between">
+                        {/* Judul */}
+                            <h3 className="text-2xl font-bold text-gray-800">Daftar Dokter</h3>
 
+                                {/* Tombol Tambah Dokter */}
+                            <Link
+                                href={route('doctors.create')}
+                                className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg shadow text-sm"
+                            >
+                                Tambah Dokter
+                            </Link>
+                        </div>
                             <div className="overflow-x-auto">
                                 <table className="min-w-full divide-y divide-gray-300 bg-white rounded-lg shadow table-auto">
                                     <thead>
@@ -72,7 +93,6 @@ export default function DoctorIndex({ doctors, auth }) {
                         </div>
                     </div>
                 </div>
-            </div>
         </AuthenticatedLayout>
     );
 }
