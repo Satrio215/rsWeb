@@ -5,7 +5,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\MedicalRecordController;
-use App\Http\Controllers\Auth\DoctorAuthController;
 use App\Http\Controllers\Auth\PatientLoginController;
 use App\Http\Controllers\PatientRegistrationController;
 
