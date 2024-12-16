@@ -27,7 +27,7 @@ export default function Dashboard({ auth }) {
                             <a href={route('appointments.index')} className="text-gray-700">1. Appointment</a>
                         </li>
                         <li>
-                            <a href="#" className="text-gray-700">2. Pasien dan Rekam Medis</a>
+                            <a href={route('medical-records.index')} className="text-gray-700">2. Pasien dan Rekam Medis</a>
                         </li>
                         <li className="relative">
                             <div className="flex items-center justify-between">
