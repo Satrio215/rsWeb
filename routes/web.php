@@ -51,6 +51,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/doctors/create', [DoctorController::class, 'create'])->name('doctors.create');
     Route::post('/doctors', [DoctorController::class, 'store'])->name('doctors.store');
 
+    Route::get('/medicines', [DoctorController::class, 'index'])->name('medicines.index');
+    Route::post('/medicines/create', [DoctorController::class, 'create'])->name('medicines.create');
+    Route::post('/medicines', [DoctorController::class, 'store'])->name('medicines.store');
+    Route::get('/medicines/edit/{id}', [DoctorController::class, 'edit'])->name('medicines.edit');
+    Route::put('/medicines/{id}', [DoctorController::class, 'update'])->name('medicines.update');
+    Route::delete('/medicines/{id}', [DoctorController::class, 'destroy'])->name('medicines.destroy');
+    Route::get('/medicines/create', [DoctorController::class, 'create'])->name('medicines.create');
+    Route::post('/medicines', [DoctorController::class, 'store'])->name('medicines.store');
 
     Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
     Route::get('/schedules/create', [ScheduleController::class, 'create'])->name('schedules.create');
