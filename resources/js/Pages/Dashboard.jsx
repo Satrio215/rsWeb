@@ -24,7 +24,7 @@ export default function Dashboard({ auth }) {
                     <h3 className="font-semibold text-lg mb-4">Navigation Menu Manajemen</h3>
                     <ul className="space-y-4">
                         <li>
-                            <a href={route('medicines.index')} className="text-gray-700">1. Appointment</a>
+                            <a href={route('appointments.index')} className="text-gray-700">1. Appointment</a>
                         </li>
                         <li>
                             <a href="#" className="text-gray-700">2. Pasien dan Rekam Medis</a>
